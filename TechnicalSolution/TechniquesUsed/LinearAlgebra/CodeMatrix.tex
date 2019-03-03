@@ -1,0 +1,254 @@
+Below is the code for some of the matrix operations that are being used in my project: 
+\begin{minted}[
+frame=lines,
+breaklines=true
+]{vb.net}
+    Public Function reshape(ByVal rows As Integer, ByVal cols As Integer) As Matrix
+        If rows * cols <> Me.shape.Item1 * Me.shape.Item2 Then
+            Throw New System.Exception("Matrix dimensions do not conform for reshape")
+        End If
+        Dim result As New Matrix(rows, cols)
+        Dim i As Integer = 0
+        For Each d In val(Me)
+            result.item(Math.Truncate(i / cols) + 1, (i Mod cols) + 1) = d
+            i += 1
+        Next
+        Return result
+    End Function  'COMPLETED -- Rehapes a matrix in to another matrix with shape = (rows, cols)
+    
+    Public Sub transposeSelf() Implements Tensor.transposeSelf
+        tState = Not tState
+        shape = New Tuple(Of Integer, Integer)(Me.shape.Item2, Me.shape.Item1)
+    End Sub 'COMPLETED -- Subroutine used to swap "ij" and also swap indices of shape - transposes the current matrix - Does not create an instance
+
+    Public Function clone() As Tensor Implements Tensor.clone
+        Dim cloned As New Matrix(Me.shape.Item1, Me.shape.Item2)
+        cloned.values = Me.values.Clone
+        cloned.tState = Me.tState
+        'For a matrix to be cloned, values tState and shape variables are required to be the same
+        Return cloned
+    End Function 'completed -- function returns an identical matrix (A clone)
+    
+        Public Shared Function conv(ByVal m As Matrix, ByVal kernel As Matrix, Optional ByVal stridesx As Integer = 1, Optional ByVal stridesy As Integer = 1, Optional ByVal padding As String = "valid") As Matrix
+        Dim paddy, paddx As Integer
+        If padding = "full" Then
+            'For a full convolution, the Matrix should be first zero-padded such that the every element in the matrix can be used to convolve with the kernel, and then a Valid convolution is applied.
+            m = Matrix.padd(m, kernel.shape.Item1 - 1, kernel.shape.Item2 - 1)
+            Return conv(m, kernel, stridesx, stridesy, "valid")
+        End If
+        If padding = "same" Then
+            If ((m.shape.Item1 Mod stridesy) = 0) Then
+                paddy = Math.Max(kernel.shape.Item1 - stridesy, 0)
+            Else
+                paddy = Math.Max(kernel.shape.Item1 - (m.shape.Item1 Mod stridesy), 0)
+            End If
+            If ((m.shape.Item2 Mod stridesx) = 0) Then
+                paddx = Math.Max(kernel.shape.Item2 - stridesx, 0)
+            Else
+                paddx = Math.Max(kernel.shape.Item2 - (m.shape.Item2 Mod stridesx), 0)
+            End If
+            m = Matrix.addcol(m, 1, Math.Floor(paddy / 2), 1)
+            m = Matrix.addcol(m, m.shape.Item1 + 1, paddy - Math.Floor(paddy / 2), 1)
+            m = Matrix.addcol(m, 1, Math.Floor(paddx / 2), 0)
+            m = Matrix.addcol(m, m.shape.Item2 + 1, paddx - Math.Floor(paddx / 2), 0)
+            'The amount of padding done for SAME convolution follows the tensorlflow guidlines for the amount of padding
+            Return conv(m, kernel, stridesx, stridesy, "valid")
+        ElseIf padding = "valid" Then
+            Dim result As New Matrix(Math.Truncate((m.shape.Item1 - kernel.getshape(0)) / stridesy) + 1, Math.Truncate((m.shape.Item2 - kernel.getshape(1)) / stridesx) + 1)
+            Dim i As Integer = 0
+            'The following code is used to compute the resulting convolved Matrix
+            'The dot product is used as convolution is essentially a series of dot products
+            For Each S In submatrix(m, kernel.shape.Item2, kernel.shape.Item1, stridesx, stridesy)
+                result.values(Math.Truncate(i / result.shape.Item2), i Mod result.shape.Item2) = Matrix.dotsum(S, kernel)
+                i += 1
+            Next
+            Return result
+        End If
+        Console.WriteLine(padding)
+        Throw New System.Exception("Padding must be either valid, same or full")
+    End Function 'COMPLETED -- Returns the convolution after a kernel have been applied
+    
+        Public Overloads Shared Function join(ByVal m As Matrix, ByVal n As Matrix, ByVal index As Integer) As Matrix
+        If m.shape.Item1 <> n.shape.Item1 Then
+            'An error is thrown here is both Matrices do not have the same number of rows
+            Throw New System.Exception("Number of Rows must be the same for both Matrices")
+        End If
+        Dim result As New Matrix(m.shape.Item1, m.shape.Item2 + n.shape.Item2)
+        Dim i As Integer = 0
+        For k As Integer = 0 To m.shape.Item2 - 1
+            If i = index Then
+                i += n.shape.Item2
+            End If
+            For l As Integer = 0 To m.shape.Item1 - 1
+                result.values(l, i) = m.item(l + 1, k + 1)
+            Next
+            i += 1
+        Next
+        For k As Integer = 0 To n.shape.Item2 - 1
+            For l As Integer = 0 To m.shape.Item1 - 1
+                result.values(l, index + k) = n.item(l + 1, k + 1)
+            Next
+        Next
+        Return result
+    End Function 'COMPLETED -- Concatenates a Matrix(M) to another Matrix(N) at the specified axis
+
+    Public Overloads Shared Function join(ByVal m As Matrix, ByVal n As Matrix, ByVal index As Integer) As Matrix
+        If m.shape.Item1 <> n.shape.Item1 Then
+            'An error is thrown here is both Matrices do not have the same number of rows
+            Throw New System.Exception("Number of Rows must be the same for both Matrices")
+        End If
+        Dim result As New Matrix(m.shape.Item1, m.shape.Item2 + n.shape.Item2)
+        Dim i As Integer = 0
+        For k As Integer = 0 To m.shape.Item2 - 1
+            If i = index Then
+                i += n.shape.Item2
+            End If
+            For l As Integer = 0 To m.shape.Item1 - 1
+                result.values(l, i) = m.item(l + 1, k + 1)
+            Next
+            i += 1
+        Next
+        For k As Integer = 0 To n.shape.Item2 - 1
+            For l As Integer = 0 To m.shape.Item1 - 1
+                result.values(l, index + k) = n.item(l + 1, k + 1)
+            Next
+        Next
+        Return result
+    End Function 'COMPLETED -- Concatenates a Matrix(M) to another Matrix(N) at the specified axis
+    
+    Public Function maxpool(ByVal kernelx As Integer, ByVal kernely As Integer, ByVal stridesx As Integer, ByVal stridesy As Integer) As Matrix
+        Dim result As New Matrix(((Me.shape.Item1 - kernely) / stridesy) + 1, ((Me.shape.Item2 - kernelx) / stridesx) + 1)
+        Dim i As Integer = 0
+        'Following code is used to select the Maximum element out of each submatrix
+        For Each m In submatrix(Me, kernelx, kernely, stridesx, stridesy) 'submatrix is a function of type ienumerable
+            result.values(Math.Truncate(i / result.shape.Item2), i Mod result.shape.Item2) = m.max()
+            i += 1
+        Next
+        Return result
+    End Function 'Completed -- Applies maxpooling to a matrix with a kernel of size = (kernelx, kernely)
+    
+    Public Shared Function rotate(ByVal m As Matrix, Optional ByVal theta As Integer = 1) As Matrix
+        If theta = 0 Then 'If theta is 0, then no rotation is required
+            Return m
+        Else
+            'Rotating a matrix 90 degrees clockwise is the same as transposing the matrix, and then reversing each row
+            Dim transposed As Matrix = m.transpose
+            Dim result As New Matrix(transposed.shape.Item1, 0)
+            For Each col In transposed.columns.Reverse
+                result = Matrix.join(result, col, result.shape.Item2)
+            Next
+            Return rotate(result, theta - 1) 'As theta is a multiple of 90 and rotation is a commutative operation, if theta > 1, then return matrix rotated by theta-1 times
+        End If
+    End Function 'COMPLETED -- Rotates the matrix by theta * 90
+    
+    Public Function oneHot(ByVal num_classes As Integer) As Matrix
+        'oneHot converts a row vector into a matrix of shape(num_classes, num_samples). Each corresponding item in the row vector is then used
+        'to select each column in the resulting matrix by placing a 1, whilst the rest of the items are set to 0.
+        If Me.getshape(0) <> 1 Then 'Checking to see if the matrix is a row vector or not
+            Throw New System.Exception("Matrix must be a row vector for one hot")
+        End If
+        Dim oneHotArr(num_classes - 1, Me.getshape(1) - 1) As Double
+        For j As Integer = 0 To Me.getshape(1) - 1
+            oneHotArr(Me.item(1, j + 1), j) = 1 'Useing the items in the matrix to select, place a 1, in the resultant matrix
+        Next
+        Return New Matrix(oneHotArr)
+    End Function 'COMPLETED -- Returns the onehot of a matri
+    
+    Public Function invOneHot() As Matrix
+        Dim result As New Matrix(1, Me.getshape(1))
+        For j As Integer = 1 To Me.getshape(1)
+            Dim maxval As Double = Double.MinValue 'Variable used to store the maximum item in this column vector
+            Dim pos As Integer = 0 'Variable used to store the position of the maximum item in the vector
+            For i As Integer = 1 To Me.getshape(0)
+                If Me.item(i, j) > maxval Then 'If the maximum item is greater than assign the maxmav to that item and "pos" to the position of that maxmimum value
+                    maxval = Me.item(i, j)
+                    pos = i
+                End If
+            Next
+            result.item(1, j) = pos - 1
+        Next
+        Return result
+    End Function 'COMPLETED -- Returns the inverse of Onehot encoding to a matrix
+    
+    Public Function normalize(Optional ByVal mean As Double = 0, Optional ByVal std As Double = 1) As Tensor Implements Tensor.normalize
+        Dim means As Matrix = Matrix.sum(Me, 0) / Me.getshape(0) 'Finds the column means
+        Dim stds As Matrix = Matrix.op(AddressOf Math.Pow, (Matrix.sum(Matrix.op(AddressOf Math.Pow, Me, 2), 0) - Matrix.op(AddressOf Math.Pow, Me, 2) * Me.getshape(0)) / (Me.getshape(0) - 1), 0.5) 'Finds the std for this particular colum
+
+        Dim result As New Matrix(Me.getshape(0), Me.getshape(1))
+        For i As Integer = 1 To Me.getshape(0)
+            For j As Integer = 1 To Me.getshape(1)
+                result.item(i, j) = (Me.item(i, j) - means.item(1, j)) / stds.item(1, j) 'normalises each item in the matrix
+            Next
+        Next
+        Return (result * std) + mean
+    End Function  'COMPLETED -- Returns the normalised version of a particular matrix
+    
+    Public Shared Function matmul(ByVal x As Matrix, ByVal y As Matrix) As Matrix
+        If x.shape.Item2 <> y.shape.Item1 Then
+            Console.WriteLine("Shape of A is {0}, {1}. Shape of B is {2}, {3}", x.shape.Item1, x.shape.Item2, y.shape.Item1, y.shape.Item2)
+            Throw New System.Exception("Shapes do not conform for matrix multiplication")
+        End If
+        'The following code, is for matrix multiplication using the standard way
+        Dim result As New Matrix(x.shape.Item1, y.shape.Item2)
+        For i As Integer = 0 To x.shape.Item1 - 1
+            For j As Integer = 0 To y.shape.Item2 - 1
+                Dim sum As Decimal = 0
+                For k = 0 To x.shape.Item2 - 1
+                    Try
+                        sum += x.item(i + 1, k + 1) * y.item(k + 1, j + 1)
+                    Catch ex As Exception
+                        Throw New System.Exception("Value was too large or too Small.")
+                    End Try
+                Next
+                result.values(i, j) = sum
+            Next
+        Next
+        Return result
+    End Function  'COMPLETED -- Returns the product of Matrix Multiplication
+    
+    Public Shared Function dotsum(ByVal x As Matrix, ByVal y As Matrix) As Boolean
+        Dim product As Matrix = y * x
+        Return Matrix.sum(Matrix.sum(product, 1)).item(1, 1)
+    End Function 'COMPLETED -- Returns the sum of all the elementwise multiplication of the 2 matrices
+    
+    Public Shared Operator =(ByVal a As Matrix, ByVal b As Matrix) As Boolean
+        If Not a Like b Then
+            Return False
+        End If
+        For i As Integer = 1 To a.shape.Item1
+            For j As Integer = 1 To a.shape.Item2
+                If a.item(i, j) <> b.item(i, j) Then 'Statement compare each value in the matrix
+                    Return False
+                End If
+            Next
+        Next
+        Return True
+    End Operator 'Completed -- Checks if all items in the matrix are the same
+    
+    Public Overloads Iterator Function columns() As IEnumerable(Of Tensor)
+        For j As Integer = 1 To Me.shape.Item2
+            Dim result As New Matrix(Me.shape.Item1, 1)
+            For i As Integer = 1 To Me.shape.Item1
+                result.values(i - 1, 0) = Me.item(i, j) 'Copies items of the column of the matrix to another matrix
+            Next
+            Yield result
+        Next
+    End Function 'COMPLETED -- Returns an enumerable of columns of the matrix
+
+    Public Shared Iterator Function submatrix(ByVal m As Matrix, ByVal kernelx As Integer, ByVal kernely As Integer, ByVal stridesx As Integer, ByVal stridesy As Integer) As IEnumerable(Of Matrix)
+        For i As Integer = 1 To m.getshape(0) - kernely + 1 Step stridesy
+            For j As Integer = 1 To m.getshape(1) - kernelx + 1 Step stridesx
+                Yield m.item(i, i + kernely - 1, j, j + kernelx - 1)
+            Next
+        Next
+    End Function 'COMPLETED -- Returns a collection of matrices, by sliding a window of length (kernelx, kernely) and using strides = (stridesx, stridesy)
+
+    Public Shared Iterator Function val(ByVal m As Matrix, Optional stepx As Integer = 1, Optional stepy As Integer = 1) As IEnumerable(Of Double)
+        For i As Integer = 1 To m.getshape(0) Step stepy
+            For j As Integer = 1 To m.getshape(1) Step stepx
+                Yield m.item(i, j)
+            Next
+        Next
+    End Function 'COMPLETED -- Returns items from a matrix, using a stepsize of (stepx, stepy)
+    
+\end{minted}

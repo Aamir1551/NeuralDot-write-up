@@ -1,0 +1,48 @@
+\subsubsubsection{Forward Propagation} \label{SForwardProp}
+Forward Propagation, also referred to as inference, is used to make a prediction given a set of inputs. The inference process for a specific layer in a neural network works as follows:
+\begin{enumerate}
+    \item The inputs are multiplied by the corresponding weights for that layer and then finally a bias is added, which results with the corresponding $z^{[l]}$ for that layer.
+    \item Once the $z^{[l]}$ has been calculated for that layer, the activation's are then calculated using the corresponding $g^{[l]}$ for that layer, which results in $a^{[l]}$.
+\end{enumerate}
+This process is then repeated throughout every layer until the final layer where the error is calculated.
+Using the notation we have established, we can now write this mathematically as: 
+\\
+\begin{center}
+$a^{[l]} = g^{[l]}(z^{[l]})$ \\ 
+where $z^{[l]} = W^{[l]}a^{[l-1]} + b^{[l]}$ 
+\end{center}
+
+In pseudo-code this may be written as:
+
+\begin{algorithm}[H]
+\caption{Dense Forward Propagation Algorithm}\label{DenseForewardProp}
+\begin{algorithmic}[1]
+\State $net \gets$ Network being used to make prediction
+\State $x \gets$ mini-batch
+\\
+\For{\texttt{each $layer$ in $net$}}
+\State $x = Matrix.matmul(layer.w, x) + layer.b$
+\State $x = layer.act(x)$
+\EndFor
+\Return $x$
+\end{algorithmic}
+\end{algorithm}
+
+Forward propagation for the convolutional layers is the same to that of the dense layers, the only difference being is that instead of matrix multiplication being the operator, the operator is now cross-correlation with both the 3d volumes. In pseudo-code this can be now written as:
+
+\begin{algorithm}[H]
+\caption{Convolution Forward Propagation Algorithm}\label{ConvForewardProp}
+\begin{algorithmic}[1]
+\State $net \gets$ Network being used to make prediction
+\State $x \gets$ mini-batch
+\State $stridesx \gets$ User Defined
+\State $stridesy \gets$ User Defined
+\State $padding \gets$ User Defined
+\\
+\For{\texttt{each $layer$ in $net$}}
+\State $x = Volume.conv2d(layer.filter, x, stridesx, stridesy, padding) + layer.b$ (Applying 2d convolution, using x as input and filter as the kernel, with strides = (stridesx, stridesy) )
+\State $x = layer.act(x)$
+\EndFor 
+\Return $x$
+\end{algorithmic}
+\end{algorithm}

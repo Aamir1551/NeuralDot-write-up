@@ -1,0 +1,21 @@
+\subsection{Techniques - Neural Networks}
+Finally, the main algorithms for my library are the actual neural networks. Each Neural network is made up of a \textit{stack} of \textbf{Layers}, which is stored in the \textbf{Net} class. Therefore, in order to implement these networks, I must have implemented the specific layers first which requires defining the forward and backward propagation algorithms for each layer.
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{4cm}|p{11cm}|}
+    \hline
+    Technique Used (\& class Implemented) & How it works \\ \cline{1-2}
+    
+    DenseNetworks foreword-prop & see section \ref{SForwardProp} \\ \cline{1-2}
+    
+    ConvNetworks foreword-prop & see section \ref{SForwardProp} \\ \cline{1-2}
+    
+    Dense Back-prop & The back-propagation algorithm for dense nets works recursively. The gradients for a layer depend upon the gradient of the layer above. Matrix multiplication then takes place between the transposed of these gradients multiplied by the previous layers weights. This product is then scalar multiplied by the gradient of the activation function which then returns the gradient of the loss w.r.t to this layers bias. To find the gradient w.r.t the weight matrix, the gradient w.r.t the bias is multiplied by the input of the layer transposed.  \\ \cline{1-2}
+    
+    Convolution Back-prop & The back-propagation for the convolutional layers is very complicated due to the fact that we are dealing with volumes instead of matrices and differentiating w.r.t the cross correlation function. To find the gradient of the loss w.r.t to a filter in a specific CNN layer, the previous layers gradients are multiplied element-wise by the kernal and the derivative of the activation function, that was used to produce these outputs. This produces a 3d volume, which means we will need to find the mean across the layers of this volume which results in a matrix corresponding to the gradients for a specific layer in the filter volume. \\ \cline{1-2}
+    \end{tabular}
+    \caption{Techniques Used - Machine Learning}
+\end{table}
+
+\input{TechnicalSolution/TechniquesUsed/NeuralNetworkTechniques/CodeNN.tex}

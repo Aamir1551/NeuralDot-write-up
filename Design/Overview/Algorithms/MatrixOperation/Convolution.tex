@@ -1,0 +1,33 @@
+\subsubsubsection{Convolution} \label{SConvolution}
+Convolution is another operation that is widely used in deep-learning. Convolution, or more correctly known as cross-correlation, is used in image recognition as it allows the network to learn a representation that is equivalent to translations. This speeds up learning, as a traditional deep-net would require many training iterations for it to learn this kind of inter-relationship of a given image. The pseudo-code for convolution is as shown in Algorithm \ref{Convolution}
+\begin{algorithm}[H]
+\caption{Convolution}\label{Convolution}
+\begin{algorithmic}[1]
+\State $M \gets $User defined Matrix - Input for the convolution operation
+\State $kernel \gets $User Defined Matrix
+\State $stridesx \gets$User Defined integer
+\State $stridesy \gets$User Defined integer
+\\
+\State $h_{kernel} \gets kernel.shape(0)$ (kernel.shape(0) returns the height of the kernel)
+\State $w_{kernel} \gets kernel.shape(1)$ (kernel.shape(1) returns the width of the kernel)
+\State $h_m \gets M.shape(0)$
+\State $w_m \gets M.shape(0)$
+\\
+\State $c \gets $ Matrix($\frac{h_{kernel} - h_{m}}{stridesy} + 1$, $\frac{w_{kernel} - w_{m}}{stridesx} + 1$) ($c$ will be the output matrix for the convolution operation)
+\\ \\
+(The Following code will now use a striding window to stride over the input $M$ using the kernel)
+\For{\texttt{$0 \leq i \leq h_m$ step $stridesy$}}
+\For{\texttt{$0 \leq j \leq w_m$ step $stridesx$}}
+\State $c_{ij} = dotsum(kernel, m.item[i, i+h_{kernel}, j, j+w_{kernel}])$ (dotsum is a function that multiplies each matrices element-wise and then sums up the element of the matrix)
+\EndFor
+\EndFor
+\Return C
+\end{algorithmic}
+\end{algorithm}
+
+In convolutional networks, the input can also have a depth, meaning the convolution operation is applied on a volume instead of a matrix. The dotsum in this case is the same, but this time the kernel is also multiplied by each layer in the input to produce a volume, whose elements are then summed up. Furthermore, the kernel being used can also be a volume. The process is again very similar, with the only difference being that the convolution operation uses each layer of the kernel and convolves it with the input. This generates a volume as the output of the convolution operation.
+
+In mathematical terms, a convolution operation can be written as follows:
+\begin{align}
+    (f*g)[n] = \sum_{-\infty}^{\infty} f^{*}(m)g[m+n]
+\end{align}

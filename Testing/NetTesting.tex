@@ -1,0 +1,25 @@
+\subsection{Net Class}
+The Net class is used by the user to create a Neural Network and to select its properties, such as the loss being used, the number of features of the data, type of layers and activation function being used on each layer. The net class will also be used to add some functionality to the neural network such as making predictions using a batch of inputs or saving a specific model for later use. These are the results of the unit test on the Net class: 
+\\ \\
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Instantiating Net with loss function and data features specified & Net Loss function and netfeature variables are set to the specified values & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Net Constructors}
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Adding Dense layer with specified activation function and neuron number & A dense layer is pushed on to the layers stack along with the activation function being used and the number of neurons in the layer. & As expected & N/A \\ \cline{1-5}
+        2 & Adding Convolutional layer with kernel dimensions, strides and layer activation specified & A conv layer is pushed on to the layers stack along with its associated features such as kernel size, strides, and layer activation & As expected & N/A \\ \cline{1-5}
+        3 & Adding reshape layer & A reshape layer is pushed on to the layers stack & As expected & N/A \\ \cline{1-5}
+        4 & Adding MaxPool layer & A MaxPool layer is pushed on to the layers stack along with its associated kernel dimensions and strides & As expected & N/A \\ \cline{1-5}        
+        5 & Predict function & The net returns the correct output of an inference made using the layers specified & As expected & N/A \\ \cline{1-5}
+    \end{tabular}
+    \caption{Testing Net functionality}
+\end{table}

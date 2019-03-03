@@ -1,0 +1,45 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\usepackage{titlesec}
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{color}
+
+\titleformat{\chapter}{\Large\bfseries}{}{0pt}{\huge}
+
+\newcommand{\subsubsubsection}[1]{\paragraph{#1}\mbox{}\\}
+%\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{4}
+
+\newcommand{\subsubsubsubsection}[1]{\subparagraph{#1}\mbox{}\\}
+\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{5}
+
+\newgeometry{vmargin={30mm}, hmargin={20mm,20mm}}
+
+\title{Computer Science Coursework - DeepLearning Library}
+\author{Aamir Soni}
+\date{May 2017 -  March 2018}
+
+\begin{document}
+
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\input{Analysis/main.tex}
+\input{Design/main.tex}
+\input{TechnicalSolution/main.tex}
+\input{Testing/main.tex}
+\input{Evaluation/main.tex}
+\input{CodeListing/FullCodeListing.tex}
+\end{document}

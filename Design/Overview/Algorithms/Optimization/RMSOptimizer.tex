@@ -1,0 +1,29 @@
+\subsubsubsection{RMS Optimiser} \label{SRMS}
+RMS optimiser, is very similar to the momentum optimiser. One key difference between momentum and RMS prop however, is that RMS is not very susceptible to quick gradient changes. This is much better, as very quick gradient changes can lead to the network overshooting the local minimum and thus diverging. RMS achieves this by keeping a running average of the magnitude of the gradients and dividing the next gradient by this average so that the gradient values are approximately normalised. This can lead to much better results and has shown to out-beet momentum in many cases. The pseudo-code for the RMS optimiser is as shown in Algorithm \ref{RMSOptimizer}
+
+\begin{algorithm}[H]
+\caption{RMS Optimiser}\label{RMSOptimizer}
+\begin{algorithmic}[1]
+\State $\alpha \gets$ User defined, default 0.01
+\State $\beta \gets$ User defined, default 0.9
+\State $t \gets 0$ (Initialise time step)
+\State $T \gets$ User defined Number of iterations 
+\State $s_{dw} \gets 0$ RMS term for the weights
+\State $s_{db} \gets 0$ RMS term for the biases
+\\
+\For{\texttt{$t<T$}}
+\For{\texttt{each $layer$ in $net$}}
+\State compute $\frac{\partial E}{\partial w}, \frac{\partial E}{\partial b}$ using back-prop with mini-batch
+\\
+\State $dw = \frac{\partial E}{\partial w}$
+\State $db = \frac{\partial E}{\partial b}$
+\\
+\State $s_{dw} = \beta s_{dw}  + (1-\beta)dw^2$
+\State $s_{db} = \beta s_{db}  + (1-\beta)db^2$
+\\
+\State $W = W-\alpha \frac{dw}{\sqrt{s_{sw}} + \epsilon}$ (Updating the weights using the normalised gradient values)
+\State $b = b-\alpha \frac{db}{\sqrt{s_{sb}} + \epsilon}$ (Updating the biases using the normalised gradient values)
+\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

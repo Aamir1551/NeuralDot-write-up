@@ -1,0 +1,34 @@
+\subsection{Linear Algebra Techniques Used}
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{2.2cm}|p{6cm}|p{7cm}|}
+    \hline
+    Technique Used (\& Class Implemented) & How it works & Reason for implementation \\ \cline{1-3}
+    
+    Matrix Operations (Matrix) & See section 2.1.1.3.4  & See section 2.1.1.3.4 \\ \cline{1-3}
+    
+    Volume Operations (Volume) & The Volume operations work very similar to the Matrix operations. The only difference between the two is that the Volume operations work on volumes instead. An example of this is the multiplication of two Volumes element-wise. Multiplication element-wise of 2 matrices involve multiplying every element in one matrix with the corresponding element in the other. The same applies for Volumes. The elements in one volume are multiplied element-wise with the elements in the other. This can be extended to other operations such as "-", "+" and "/". & There are two main reasons why these operations were implemented in the \textbf{Volume} class. The first reason is that these operations are used thoroughly in the \textbf{Conv} class for back-propagation and also for the foreword propagation. Furthermore, these operations are also used when handling with Volumes. This is because when the user is dealing with images, sound or some other data format which have a 3rd dimension, it will be much easier for the user to manipulate using the \textbf{Volume} class, as most of the most common data-processing functions will be implemented. This includes \textit{normalising}, \textit{rotating}, \textit{splitting} a portion of the volume and so on. An example of a situation where the user may want to use these operations is when the user is dealing with images in RGB format, the user may want to \textit{normalise} the values for the conv net, therefore by having a normalising function in the \textit{Volume} class makes it much easier for the user as they will not need to define their own functions for the data processing part. Another function that was implemented was \textit{op(f(x), v)}, where f(x) is a function that takes in a matrix and returns a matrix and V is a volume which this function will be applied on layer by layer. This particular function allows many of the matrix operations to be extended to the Volume class.  \\ \cline{1-3}
+    
+    Matrix Multiplication (Matrix) & Matrix Multiplication works by Multiplying the rows of one matrix with the columns of the the other and summing in the process. For more information about matrix multiplication see section \ref{SMatrixMultiplication}, which is in design. & The reason I implemented matrix multiplication was that it is used many times in dense networks to propagate through the layers. \\ \cline{1-3}
+    
+    Matrix Iteration (Matrix) & The matrix iteration algorithms work by yielding an item instead of returning a specific item and then terminating. Matrix Iteration for the columns in a matrix works by yielding columns in the matrix which then allows the user to loop over these iterations. The \textit{submatrix} iterator works by striding a window over a matrix and then returning all the elements the window strides over. & Matrix iteration are extremely useful to my library as it saved me from writing the same for-loops many times and thus makes my code much easier to read and understand. These iteration algorithms can also be used by the user as the user may want to loop over their data which may be in matrix format. Furthermore, the iteration \textit{submatrix} is used in the \textbf{Matrix} class for the functions \textit{conv}, \textit{maxpool} and is also used in the MaxPooling class, as it implements the required for-loops these functions require. \\ \cline{1-3}
+    \end{tabular}
+    \caption{Techniques Used - Linear Algebra (part 1)}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{2.2cm}|p{6cm}|p{7cm}|}
+    \hline
+    Volume Iterations (Volume) & The iterations for the \textbf{volume} class work similarly to the iterations in the \textbf{Matrix} Class. The \textbf{Volume} class implements the iterators, \textit{subvolume} and \textit{Items}. The subvolume iterator works the same way as the submatrix iterator with the exception that subvolume works with volumes instead. Finally, the iterator Items work by yielding the layers of a Volume.
+    & The reason for implementing these iterators are the same for the Matrix Iterators, as they both reduce the need to use the same for-loops to iterate over the same data-structure. \\ \cline{1-3}
+    
+    Volume Casts (Volume) & Volume casting is used to cast a given to matrix or to cast a matrix to a volume. & These functions are used by the \textbf{Reshape} class, as this layer transforms the output volume from a \textbf{Conv} class to a matrix for the \textbf{Dense} class that follows on. For the back-prop procedure however, the casting is from Matrix to Volume, which will then be back-propagated to the conv layers as the deltas for the back-prop procedure. \\ \cline{1-3}
+    
+    Convolution (Volume) & See \ref{SConvolution} & Convolution is used to forward propagate and also back-propagate throughout the conv classes as it is part of the inference process for convolutional neural networks. \\ \cline{1-3}
+    \end{tabular}
+    \caption{Techniques Used - Linear Algebra (Part 2) }
+\end{table}
+
+\input{TechnicalSolution/TechniquesUsed/LinearAlgebra/CodeMatrix.tex}
+\input{TechnicalSolution/TechniquesUsed/LinearAlgebra/CodeVolume.tex}

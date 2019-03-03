@@ -1,0 +1,38 @@
+\subsubsection{Neural Networks}
+There are many variations of neural networks each with its own purpose, however the main type of neural networks I will be focusing on will be feed-forward neural networks and convolutional neural networks. Feed-forward NNs are the most basic type of NNs and also the backbone for many other variations there are. 
+\\ \\
+Throughout this paper, we will be using the standard notation to avoid any unnecessary confusion
+\\
+\begin{itemize}
+\centering
+\item[] 
+$n_x$ : Input size \\
+$n_y$ : Output size \\
+$L$ : Number of layers in Neural Network \\
+$n^{[l]}_h$ : Number of hidden units in layer $l$ \\
+$m$ : Number of examples in data set \\
+$X \in \mathbb{R}^{n_x \times m}$ : Input matrix, can also be referred to as $a^{[0]}$ \\
+$x^{(i)} \in \mathbb{R}^{n_x}$ : $i^{th}$ example represented as a column vector \\
+$Y \in \mathbb{R}^{n_y \times m}$ : Label matrix for $X$ \\
+$y^{(i)} \in \mathbb{R}^{n_y}$ : Output label for the $i^{th}$ example \\
+$W^{l} \in \mathbb{R}^{n_h^{l-1} \times n_h^{l}}$ : Weight matrix in layer $l$ \\
+$b^{[l]} \in \mathbb{R}^{n^{[l]}_h}$ : Bias vector in layer $l$ \\
+$z^{[l]} \in \mathbb{R}^{n^{[l]}_h}$ : Product vector in layer $l$ \\
+$g^{[l]}$ : Activation function in layer $l$ \\
+$a^{[l]} \in \mathbb{R}^{n^{[l]}_h}$ : Activation vector in layer $l$ \\
+$\hat{y} \in \mathbb{R}^{n_y}$ : Predicted output vector. Can also be denoted as $a^{[L]}$
+\end{itemize}
+
+Here is an example of a simple Neural Network, with the notation included
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=7cm]{Design/Overview/Algorithms/NeuralNetworks/NeuralNetworkDiagram.png}
+    \caption{Neural Network Example}
+    \label{fig:my_label}
+\end{figure}
+This network is called a 2 layer network, as it has 1 hidden layer and one output layer.
+\input{Design/Overview/Algorithms/NeuralNetworks/ForwardPropagation.tex}
+\input{Design/Overview/Algorithms/NeuralNetworks/Backpropagation.tex}
+\input{Design/Overview/Algorithms/NeuralNetworks/LossFunctions.tex}
+

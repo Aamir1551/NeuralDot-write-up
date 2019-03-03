@@ -1,0 +1,58 @@
+\subsection{Matrix Class}
+Exceptions handling is the only way the matrix class will be handling with erronous inputs. Therefore, I have made sure that the errors that turn up are detailed and the user understands what went wrong so that they can go back and change their inputs.
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Instantiating Matrix with initial values set to integer.maxvalue numbers & System.OutOfMemoryException must occur & As expected & N/A \\
+        \cline{1-5}
+        2 & Instantiating Matrix with fixed size - size is set to (integer.maxvalue, integer.maxvalue) & System.OutOfMemoryException must occur & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix Constructors}
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Returning an item from a matrix from an invalid position & Exception occurred throwing "index is out of bounds for matrix" & As expected & N/A \\
+        \cline{1-5}
+        2 & Setting an invalid specific cell in a matrix to a specified value & Exception occurred throwing "index is out of bounds for matrix" & As expected & N/A \\
+        \cline{1-5}
+        3 & Testing get/set property to returns/set an invlaid portion of the matrix & Exception occurred throwing "index is of bounds for matrix" & As expected & N/A \\
+        \cline{1-5}
+        4 & Testing reshaping function using invalid dimensions for reshape & Exception occurred throwing "Matrix dimensions do not conform for reshape" & As expected & N/A \\
+        \cline{1-5}
+        9 & Testing addcol function to add new column in an invalid axis & Exception occurred throwing "Index cannot be more that zero, and needs to be less than the size of dimension in which col/row is being added" & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix basic functionality}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Sum of 2 matrices with invalid dimensions, i.e shapes not conforming & Exception occurred throwing "shapes do not conform for addition" & As expected & N/A \\
+        \cline{1-5}
+        2 & Difference of 2 matrices with dimensions not conforming & Exception occurred throwing "shapes do not conform for addition" & As expected & N/A \\
+        \cline{1-5}
+        3 & Element-wise multiplication between 2 matrices with invalid dimensions & Exception occurred throwing "shapes do not conform for element-wise multiplication" & As expected & N/A \\
+        \cline{1-5}
+        4 & Element-wise division of 2 matrices with invalid dimensions & Exception occurred throwing "shapes do not conform for element-wise multiplication" & As expected & N/A \\
+        \cline{1-5}
+        5 & Matrix Multiplication between 2 matrices with invalid dimensions & Exception occurred throwing "shapes do not conform for matrix multiplication" & As expected & N/A \\
+        \cline{1-5}
+        6 & DotSum operation between 2 matrices with different shapes & Exception occurred throwing "shapes do not conform for matrix multiplication" & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix Operations}
+    \vspace{0.5cm}
+\end{table}
+
+
+
+

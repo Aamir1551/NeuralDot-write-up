@@ -1,0 +1,45 @@
+\subsubsubsection{Loss-Functions}
+The back-propagation algorithms in section \ref{SBack-propagation} relied on a loss function. The loss function, also referred to as the cost function, measures how bad the network is performing. Therefore, the goal of the network is to minimise the loss function, which is done through the use of the back-prop algorithm. This allows the network to learn from the data by minimising the cost function, thus a decreasing loss function implies that the net is learning from the data and a converging loss function implies that the learning is slowing down possibly due to the net having learnt the data, or reaching a global/local minimum. There are a wide array of cost function that are available, however the two most commonly used are: \textbf{soft-max} and 
+\textbf{squared error}. 
+
+Minimising a function, is a classic problem in calculus and relies upon the derivative of the function. Furthermore, the back-propagation algorithm in section \ref{SBack-propagation} relies upon the derivative of the loss function. Therefore, it is necessary to be able to compute the derivative of the cost function as it is used to back-propagate throughout the network.
+
+\subsubsubsubsection{Squared-error}
+The squared-error loss function measures the average of the sum of the squared error for each data-point.
+
+In mathematical form, the squared-error and its derivative may be written as: 
+
+\begin{center}
+    $ E = \frac{1}{2m} \sum^m{(\hat{y}-y)^2}$ \\
+    $ \frac{dE}{d\hat{y}} = \hat{y} - y $
+\end{center}
+
+
+These results can be proved by using the chain-rule, i.e using the result $\frac{dy}{dt} = \frac{dy}{dx} \frac{dx}{dt}$
+
+The squared error cost function is commonly used for regression tasks, image-recognition and also used to train many other type of ML models besides neural networks.
+
+\subsubsubsubsection{Soft-max cost function}
+The soft-max function, unlike the squared error is most commonly used for multiclass classification. Multiclass classification unlike binary classification, where the data has to belong in one of 2 sets, enables the model to classify objects into more than 2 groups. This is useful for recognition system, where the model is looking out for many different objects at the same time.
+
+Unlike the squared error, softmax works very differently compared to the squared error. The softmax loss function is usually composed of a loss function and an activation function, which is the actual softmax activation function. The loss function being used is usually the cross-entropy loss function.
+
+The softmax activation function works by exponentiating each element in the input vector and then dividing by the sum of this vector. This results in a vector that represents the probability that a given element at an index represent the probability of the image belonging to that class.
+
+Using mathematical notation, the softmax activation function and its respective derivative may then be written as:
+
+\begin{center}
+    $ \hat{y} = \frac{e^{z_c}}{\sum_c^{n_y} {e^{z_c}}}$\\
+    where $z$ is the product vector and $z_c$ represents the $c_{th}$ item in that vector. An important point to note that since this is the last layer, the length of this vector will be $n_y$ \\
+    $ \frac{dE}{d\hat{y}} = \hat{y} * (1-\hat{y}) $
+\end{center}
+
+Finally, the cross-entropy loss function works by taking in the vector of probabilities($\hat{y}$) of each class and then applying the natural logarithm to the reciprocal of each element in this vector. Each element is then multiplied by its corresponding $y_i$ which produces a vector, whose elements are then summed up which produces the output of the cross-entropy loss function. 
+
+Using mathematical notation, the cross-entropy activation function and its respective derivative may then be written as:
+
+\begin{center}
+    $ E = \sum_c^{n_y} -y_{c}{ log(\hat{y}_{c})} $ \\
+    $ \frac{dE}{d\hat{y}} = \hat{y} - y $ \\
+    An interesting point to note is that the derivative for the squared error and the cross-entropy loss function is the same.
+\end{center}

@@ -1,0 +1,106 @@
+\subsection{Matrix Class}
+The Matrix class is essential to the project as it is used by all my classes. Therefore, it is important that the matrix class works correctly, otherwise it would result in all the classes working incorrectly. Therefore, before doing unit tests on any other class, it is important that I first carry out a unit test on the matrix class. These are the results for the unit tests on the matrix class:
+\\ \\
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Instantiating Matrix with initial values set & Matrix Instantiated with set values & As expected & N/A \\ \cline{1-5}
+        2 & Instantiating Matrix with fixed size & Matrix Instantiated with size set & As expected & N/A \\
+        \cline{1-5}
+        3 & Instantiating Matrix with values $\sim$ N(0, 1) & Matrix instantiated with all values $\sim$ N(0, 1)  & As expected & N/A \\ \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix Constructors}
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Returning a specific item from a matrix & Returns the selected cell from the matrix & As expected & N/A \\ \cline{1-5}
+        2 & Setting a specific cell in a matrix to a specified value & The cell is set to the required value & As expected & N/A \\ \cline{1-5}
+        3 & Testing get/set property to return/set the required portion of the matrix & Property returned/set correct portion of Matrix & As expected & N/A \\ \cline{1-5}
+        4 & getshape function & Correct shape of Matrix is returned as a list of dimensions & As expected & N/A \\ \cline{1-5}
+        5 & Print Function & All values printed correctly & As expected & N/A \\ \cline{1-5}
+        6 & transpose\_self sub-routine followed by print function & Variable tState is set to True and the transposed matrix is printed out & As expected & N/A \\ \cline{1-5}
+        7 & Clone Function & Returns new matrix with same values and same tState variable & As expected & N/A \\
+        \cline{1-5}
+        8 & Reshape function & Returns new matrix with same values, but with the correct shape specified & As expected & N/A \\
+        \cline{1-5}
+        9 & addcol function & Returns new matrix with extra columns & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix basic functionality}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Sum of 2 matrices & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        2 & Difference of 2 matrices & Matrix of correct value returned & As expected & N/A \\
+        \cline{1-5}
+        3 & Element-wise multiplication between 2 matrices & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        4 & Element-wise division of 2 matrices & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        5 & Matrix Multiplication & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        6 & clockwise rotation of matrix & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        7 & MaxPool operation on a matrix & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        8 & maximum item operation on matrix & correct value returned & As expected & N/A \\
+        \cline{1-5}
+        9 & Matrix Convolution & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        10 & Sum of 2 matrices using broadcasting & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        11 & DotSum operation between two matrices & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        12 & Equality between 2 matrices & Correct Boolean output returned & As expected & N/A \\
+        \cline{1-5}
+        13 & Scalar multiplication between a double and matrix & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        14 & Scalar Addition between a double and matrix & Matrix of correct values returned & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix Operations}
+    \vspace{0.5cm}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Value Iteration & Iterator returns an IEnumerable of each value in the matrix & As expected & N/A \\
+        \cline{1-5}
+        2 & Column Iteration & Iterator returns an IEnumerable of all the columns in the matrix & As expected & N/A \\
+        \cline{1-5}
+        3 & Sub matrix Iteration & All sub-matrices returned for the correct kernel size and strides & Out of bound error, as the striding window went outside the matrix & The for-loop started at 0, when it was supposed to start from 1.\\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Matrix Iterators}
+    \vspace{0.5cm}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Function $f(x) -> y$, where x is double, is applied on a matrix & Function returns matrix with each value being the result of the function $f(x)$ & As expected & N/A \\
+        \cline{1-5}
+        2 & Function $f(x,y) -> y$, where x and y are doubles each from a separate matrix, is applied on matrix & Function returns matrix with each value being the result of the function $f(x,y)$ & As expected & N/A \\
+        \cline{1-5}        
+    \end{tabular}
+    \caption{Testing inner Matrix functions}
+    \vspace{0.5cm}
+\end{table}
+
+
+
+

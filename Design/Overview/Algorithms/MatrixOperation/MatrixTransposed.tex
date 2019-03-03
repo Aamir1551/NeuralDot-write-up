@@ -1,0 +1,26 @@
+\subsubsubsection{Matrix Transpose}
+The transpose of a matrix is used to back-propagate throughout a neural network. It is used many times, therefore an efficient algorithm is required. Therefore, I have decided that instead of transposing an actual matrix, instead keep track of the state of the matrix using a variable called $tState$. This means when indexing the $ij_th$ item from a matrix return the $ij_th$ item if $tState$ is set to $"False"$, otherwise return the $ji_th$ item. This provides an efficient method of transposing a matrix, as traditional algorithms require transposing a matrix every time the transposed matrix is required, which is an $O(n^2)$ operations. Therefore, by using this approach we can solve this problem in $O(1)$ time.
+
+The corresponding pseudo-code will be:
+\begin{algorithm}[H]
+\caption{Indexing Matrix}\label{IndexingMatrix}
+\begin{algorithmic}[1]
+\State $m \gets$ User-defined Matrix being used to index item
+\State $i \gets $ User defined integer (Used to select the $i^{th}$ row)
+\State $j \gets $ User defined integer (Used to select the $j^{th}$ column)
+\\
+\If{$tState = False$}
+\State \Return $m(i,j)$
+\Else
+\State \Return $m(j,i)$    
+\EndIf
+\end{algorithmic}
+\end{algorithm}
+
+Therefore, the Pseudo-code for transposing a matrix will be:
+\begin{algorithm}[H]
+\caption{Transposing Matrix}\label{TransposingMatrix}
+\begin{algorithmic}[1]
+\State $tState = \bar{tState}$ (Inverting the tState boolean variable)
+\end{algorithmic}
+\end{algorithm}

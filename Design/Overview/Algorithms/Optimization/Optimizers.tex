@@ -1,0 +1,11 @@
+\subsubsection{Optimisers} \label{Optimisers}
+As discussed in the previous section, we have seen that by using matrix calculus we can formulate an algorithm to back-propagate through the neural network to find the respective derivatives for each weight matrix. Once these derivatives have been found, the most basic way to update the weights is as shown in the section \ref{SBack-propagation}. However, there are many other alternatives which have shown to work much better. The alternative optimisation methods that I will also be implementing are:
+\begin{itemize}
+    \item Momentum Optimisation
+    \item RMS Optimiser
+    \item Adaptive Moment Estimation (ADAM) Optimiser
+\end{itemize}
+
+\input{Design/Overview/Algorithms/Optimization/Momentum.tex}
+\input{Design/Overview/Algorithms/Optimization/RMSOptimizer.tex}
+\input{Design/Overview/Algorithms/Optimization/AdamOptimizer.tex}

@@ -1,0 +1,78 @@
+\subsubsubsection{Basic Matrix Operations}
+Some basic matrix operations that I will be using is as follows:
+\begin{itemize}
+    \item Addition and subtraction of 2 matrices
+    \item Element wise Multiplication
+    \item DotSum of 2 matrices
+    \item Applying a function $f(x)$ element-wise to a matrix
+    \item Applying an arbitrary function $f(x_1, x_2)$ between 2 matrices
+    \item Reshaping a matrix - including reshaping a matrix to a volume
+    \item Cloning a given matrix
+    \item Adding columns and rows to a matrix
+    \item Joining two matrices
+    \item Max-pooling a matrix
+    \item Rotating the items of a matrix
+    \item Normalising matrices
+\end{itemize}
+
+The pseudo-code for the reshaping of a matrix is as follows:
+
+\begin{algorithm}[H]
+\caption{Reshaping Matrix}\label{Backpropagation}
+\begin{algorithmic}[1]
+\State $M \gets$ Matrix being reshaped
+\State $rows \gets$ number of rows in resulting matrix
+\State $cols \gets$ number of columns in the resulting
+\State $i \gets$ Indexing of matrix
+\\
+\If{$matrix.shape(0)\times matrix.shape(1) \neq rows \times cols$}
+\State Throw exception("Matrix dimensions do not conform for reshaping") (Exception was thrown here, as the number of elements in both matrices should be the same for reshaping to take place)
+\EndIf
+\State $C \gets$ matrix(rows, cols)
+\For{\texttt{each $d$ in M}} (Iterating over each element in the matrix $M$)
+\State $C_{ trunc(i/cols),{(i\mod cols)}+1} = d$ (Setting the values of matrix $C$ by placing each element row-wise)
+\State $i+=1$
+\EndFor
+\Return $C$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{2 to 1 function applied element-wise on 2 matrices}\label{2 to 1 function}
+\begin{algorithmic}[1]
+\State $X \gets$ Matrix the function will be applied on
+\State $Y \gets$ Matrix the function will be applied on
+\\
+\State $f(x,y) \gets$ function that will be applied to both matrices
+\State $C \gets$ Matrix that will be returned
+\State $i=0$
+\If{$X.shape <> Y.shape$}
+\State Throw exception("Matrix dimensions do not conform") (Exception was thrown here as both matrices must have same dimensions for this function to be applied)
+\EndIf
+\For{\texttt{each $d_{x}, d_{y}$ in X,Y}} (looping over each element in matrix $X$ and $Y$)
+\State $C_{ trunc(i/cols),{(i\mod cols)}+1} = f(d_{x}, d_{y})$ (Output of the function is assigned to the matrix $C$, which is being filled row-wise)
+\State $i+=1$
+\EndFor
+\\
+\Return $C$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\caption{1 to 1 function applied element-wise on matrix}\label{1 to 1 function}
+\begin{algorithmic}[1]
+\State $X \gets$ Matrix that function will be applied
+\\
+\State $f(x) \gets$ function that will be applied to both matrices
+\State $C \gets$ Matrix that will be returned
+\State $i=0$
+\For{\texttt{each $d_{x}$ in X}} (looping over each element in matrix $X$)
+\State $C_{ trunc(i/cols),{(i\mod cols)}+1} = f(d_{x})$ (Output of the function is assigned to the matrix $C$, which is being filled row-wise)
+\State $i+=1$
+\EndFor
+\\
+\Return $C$
+\end{algorithmic}
+\end{algorithm}
+
+One crucial aspect of machine learning is data processing. This is extremely important as the data needs to be processed properly for the ML models to work well. Therefore, I will be adding as much functionality as I can to allow the user to process their data as much as possible. This will include functions such as remove cols/rows, rotating matrices, inversing the oneHot operation on a matrix, padding a matrix and many other functions to make the manipulation of data easy for the user. These functions will come extremely handy when the user is dealing with images as data for conv-nets, which will require volumes, and many times the data is in RGB format, which is essentially a volume of depth 3. Therefore, if the user would wanted to manipulate and process their data to make the training of the net as easy as possible, it is important that all the most used functions are all predefined, as the most important aspect of my library is to make machine learning as easy as possible. Therefore, I will be one step closer to achieving this goal, as the user will not need to define these functions which could be a daunting tasks especially for beginners thus putting off many people before even getting their hands on the machine learning stuff. Furthermore, from the pseudo-code, for the back-propagation and forward propagation algorithms, it is clear that I will be using many of these matrix operations.

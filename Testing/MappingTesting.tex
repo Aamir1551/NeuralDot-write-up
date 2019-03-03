@@ -1,0 +1,29 @@
+\subsection{Mapping Class}
+The mapping class relies heavily on the matrix class to function correctly. This is why the matrix class was tested before the Mapping class. The Mapping class can be used by the user to define their own activation or loss function or to use a predefined function for a specific layer in the network. These are the results of the unit test ran on the Mapping class:
+\\ \\
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Instantiating a Mapping with activations specified and its respective derivatives & f\_ and d\_ are set to the values specified & As expected & N/A \\
+        \cline{1-5}
+        2 & Instantiating a Mapping with loss functions specified and its respective derivatives & f\_ and d\_ are set to the values specified & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Mapping Constructors}
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Invoking activation function defined & The correct outputs of the activation function defined is returned & As expected & N/A \\ \cline{1-5}
+        2 & Invoking gradient of activation function defined & The correct outputs of the gradient function is returned & As expected & N/A \\ \cline{1-5}
+        3 & Invoking loss function defined & The correct outputs of the loss function defined is returned & As expected & N/A \\ \cline{1-5}
+        4 & Invoking gradient function of loss function defined & The correct outputs of the gradient of the loss function is returned & As expected & N/A \\ \cline{1-5}
+        5 & Testing shared mappings defined that are used as activation functions (linear, relu, sigmoid, tanh, swish, softmax\_act) & The correct outputs and its associated derivatives are returned for each activation & As expected & N/A \\ \cline{1-5}
+        6 & Testing shared mappings defined that are used as loss functions (squared\_error and softmax) & The correct outputs and its associated derivatives are returned for both loss functions & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Mapping Class functionality}
+\end{table}

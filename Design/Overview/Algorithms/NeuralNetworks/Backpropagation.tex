@@ -1,0 +1,73 @@
+\subsubsubsection{Back-propagation} \label{SBack-propagation}
+Back-propagation, is another algorithm with many variations which will be discussed further in the section \ref{Optimisers}. Although there are many techniques for back-propagation they all have the same goal; reduce the error of the network. Therefore the essence of back propagation is to find the correct weight matrix that approximates a given function to an appropriate degree of accuracy in a given interval. Back-propagation, is a \textbf{recursive} algorithm that uses \textbf{memoization} to back-propagates throughout the network to find the \textbf{derivative} of each weight w.r.t (with respect to) a cost. The cost being used, will be set before training and is different for each task.
+The notation that will be used in explaining back-propagation will be:
+
+\begin{center}
+    $E$ : denotes the error/cost function begin used \\
+    $\alpha$ : denotes the learning rate used for back-prop \\
+    $\delta^{l}$ : denotes the derivative of the bias matrix $b^{l}$ with respect to the cost function i.e $ \delta^{l} = \frac{\partial E}{\partial b^{l}}$ \\
+    $\cdot$ : denotes the hadamard product
+\end{center}
+
+The equations, that will be used for back-propagation for a \textbf{Dense} layer will be:
+\begin{center}
+    $\delta^{l} = ((W^{[l+1]})^{T}\delta^{[l+1]}) \cdot g'^{[l]}(z^{[l-1]})$ \\
+    $\frac{\partial E}{\partial W^{l}} = \delta^{l}(a^{[l-1]})^T$ \\
+    $\frac{\partial E}{\partial b^{l}} = \delta^{l}$
+\end{center}
+
+In summation form this may be written as:
+
+\begin{center}
+    $\delta^{l} = \sum_{m} \delta_{m}^{l+1}w_{m,k}$ \\
+\end{center}
+
+%write that it took entire night to2 test the network
+% explain what cdot represents
+
+The equations, that will be used for back-propagation for a \textbf{Conv} layer will be:
+\begin{center}
+    $\delta^{l} = \delta^{l+1}_{x,y} \cdot rot_{180^\circ}(w^{l+1}_{x,y}) f'(a^{l}_{x,y})$ \\
+    $\frac{\partial E}{\partial W^{l}_{x,y}} = \delta^{l}_{x,y} \cdot f(rot_{180^\circ} (o^{l-1}_{x,y}))$ \\
+    $\frac{\partial E}{\partial b^{l}} = \delta^{l}$
+\end{center}
+In these equations, $w$ denotes a Volume, i.e a lists of matrices with equal dimensions.
+
+In summation form the gradient of the error w.r.t $w^{l}$, in a conv net will be:
+
+\begin{equation*}
+    \delta^{l} = rot_{180^\circ} \{\sum_{m=0}^{k_{1} -1} \sum_{n=0}^{k_{2}-1} \delta_{i+m,j+n}^{l+1} w_{m,n}^{l+1}f'(x_{i,j}) \}
+\end{equation*}
+
+Finally, the corresponding updates for a layer in the net will be:
+
+\begin{center}
+    $W := W - \alpha \frac{\partial E}{\partial W}$ \\
+    $b := b - \alpha \frac{\partial E}{\partial b}$
+\end{center}
+These updates will be applied to every layer in the network on each iteration.
+
+These equations, can be easily derived by extending the chain-rule to matrix multiplication, i.e by using the lemma $\frac{\partial x^Ta}{\partial x} = a$
+
+In pseudo-code this may be written as:
+\begin{algorithm}[H]
+\caption{Back-propagation Algorithm - Dense Layer}\label{StandardBackpropagation}
+\begin{algorithmic}[1]
+\State $net \gets$ Network being trained
+\State $x \gets$ mini-batch
+\State $y \gets$ labels for mini-batch
+\\
+\State $\hat{y} = forewardPop(x)$
+\State $error = \hat{y} - y$
+\State $db = [error \times net.gradact(net.last)]$ ($db$ is a list containing the gradient w.r.t the biases for each layer)
+\State $dw = [net.layer(-2) \times db.last()]$ (net.layer is a list containing the gradient w.r.t the weight matrices of each layer)
+\\
+\For{\texttt{each $layer$ in $net$ step -1}}
+\State $db.add(matrix.matmul(layer.w.T, deta.last) \cdot net.gradact(layer))$ (Adding the gradient of the loss w.r.t $b^{[layer]}$)
+\State $dw.add(layer.act, db.last)$ (Adding the gradient of loss w.r.t  $W^{[layer]}$)
+\EndFor
+\Return $dw, db$  in the network
+\end{algorithmic}
+\end{algorithm}
+
+These back-propagation algorithms require a sample of the training data. If each image is used for one back propagation, this is known as stochastic gradient decent, whereas if every image is used in the training sample, then this is known as batch-gradient descent. Batch-gradient descent is more prone to local minimas, however it can take less time to train the network, whereas stochastic gradient descent can take more time but is less prone to locals minimas. Therefore, it is important that the user selects something in between by splitting the training data into different batches each. This is known as mini-batch gradient descent. Therefore, stochastic gradient descent and batch-gradient descent are just special cases for mini-batch gradient descent when $m_b = 1$ and $m_b = m$ where $m_b$ is the mini-batch size, respectively.

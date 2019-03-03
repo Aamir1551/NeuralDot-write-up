@@ -1,0 +1,40 @@
+\subsubsubsection{Adaptive Moment Estimation (Adam) Optimiser} \label{SADAM}
+Adaptive Moment Estimation, or Adam for short, is another approach regularly used to minimise the cost function. Currently, Adam is one of the most used optimises used mainly due to its high-performance in computer vision problems. Therefore, I will also be implementing the Adam optimisation algorithm. The respective pseudo-code for the Adam algorithm is as shown in Algorithm \ref{AdamOptimizer}. 
+
+\begin{algorithm}[H]
+\caption{Adam Optimiser}\label{AdamOptimizer}
+\begin{algorithmic}[1]
+\State $\alpha \gets$ User defined, default 0.01
+\State $\beta_1 , \beta_2 \in [0,1)$ Exponential decay rates for moment estimates
+\State $m_{dw} \gets 0$ (Initialise $1^{st}$ moment vector for weight matrix)
+\State $v_{dw} \gets 0$ (Initialise $2^{nd}$ moment vector)
+\State $m_{db} \gets 0$ (Initialise $1^{st}$ moment vector for bias matrix)
+\State $v_{db} \gets 0$ (Initialise $2^{nd}$ moment vector)
+\State $t \gets 0$ (Initialise time step)
+\State $T \gets$ User defined Number of iterations 
+\\
+\For{\texttt{$t<T$}}
+\For{\texttt{each $layer$ in $net$}}
+\State compute $\frac{\partial E}{\partial w}, \frac{\partial E}{\partial b}$ using back-prop with mini-batch
+\\
+\State $dw = \frac{\partial E}{\partial w}$
+\State $db = \frac{\partial E}{\partial b}$
+\\
+\State $m_{dw} = \beta_1 m_{dw}  + (1-\beta_1)dw$
+\State $v_{dw} = \beta_2 v_{dw} + (1-\beta_2)dw^2$
+\\
+\State $m_{db} = \beta_1 m_{db}  + (1-\beta_1)db$
+\State $v_{db} = \beta_2 v_{db} + (1-\beta_2)db^2$
+\\
+\State $\hat{m_{dw}} = \frac{m_{dw}}{1-\beta_1^t}$
+\State $\hat{m_{db}} = \frac{m_{db}}{1-\beta_1^t}$
+\\
+\State $\hat{v_{dw}} = \frac{v_{dw}}{1-\beta_2^t}$
+\State $\hat{v_{db}} = \frac{v_{db}}{1-\beta_2^t}$
+\\
+\State $W = W-\alpha \frac{\hat{m_{dw}}}{\sqrt{\hat{v_{dw}}} + \epsilon}$
+\State $b = b-\alpha \frac{\hat{m_{db}}}{\sqrt{\hat{v_{db}}} + \epsilon}$
+\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

@@ -1,0 +1,28 @@
+\subsubsubsection{Matrix Multiplication} \label{SMatrixMultiplication}
+Matrix multiplication will be used to propagate throughout a neural network. Being $O(n^3)$, it is crucial that we implement it efficiently, otherwise it would mean that the neural network runs incredibly slow when the number of neurons used increase exponentially. The pseudo-code for Matrix Multiplication is as shown in Algorithm \ref{MatrixMultiplication}. 
+
+\begin{algorithm}[H]
+\caption{Matrix Multiplication}\label{MatrixMultiplication}
+\begin{algorithmic}[1]
+\State $A \gets $User defined Parameter
+\State $B \gets $User Defined Parameter
+\\
+\State $n = A.shape(0)$
+\State $m = B.shape(1)$
+\\
+\State $C \gets $ Matrix(n, m) '$C$ will be the resulting matrix of matrix multiplication
+\For{\texttt{$1 \leq i \leq n$}} (Looping over the columns of A)
+\For{\texttt{$1 \leq j \leq m$}} (Looping over the rows of B)
+\State $C_{ij}$ = 0
+\For{\texttt{$1 \leq k \leq n$}} (Iterating over rows \& columns of A and B, respectively and summing the products)
+\State $C_{ij} = C_{ij} + (A_{ik}*B_{jk})$
+\EndFor
+\EndFor
+\EndFor
+\Return C
+\end{algorithmic}
+\end{algorithm}
+In mathematical terms this can be neatly written as:
+\begin{align}
+    c_{ij} = \sum_{k=1}^{m} a_{ik}b_{kj}
+\end{align}

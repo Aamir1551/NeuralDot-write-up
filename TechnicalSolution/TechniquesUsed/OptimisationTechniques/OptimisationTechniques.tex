@@ -1,0 +1,21 @@
+\subsection{Optimisation Techniques Used}
+The advanced optimisation algorithms for training dense nets was asked by my clients, therefore I have implemented these algorithms as it was one of the needs of my target market, and also one of my key objectives set. Implementing these algorithms also allow the user to view the difference each optimisation method has on the net and how changing the architecture of the net can have an impact on the optimisation method being used. Finally, these advanced optimisation methods are set methods and these algorithms have shown to work much better than the standard back-propagation algorithm in the training of Dense nets, see section \ref{Optimisers} for more detail.
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{5.5cm}|p{4cm}|p{4cm}|}
+    \hline
+    Technique Used & Class Used in & How it works \\ \cline{1-3}
+    
+    Adam optimisation algorithm & AdamOptimiser & See \ref{SADAM} \\ \cline{1-3}
+    
+    Momentum algorithm & Momentum & See \ref{SMOM} \\ \cline{1-3}
+    
+    RMS algorithm & RMS & See \ref{SRMS} \\ \cline{1-3}
+    
+    Back-prop algorithm & GradientDescentOptimiser & See \ref{SBack-propagation} \\ \cline{1-3}
+    \end{tabular}
+    \caption{Techniques Used - Optimisation Algorithms}
+\end{table}
+
+\input{TechnicalSolution/TechniquesUsed/OptimisationTechniques/CodeOptimisation.tex}

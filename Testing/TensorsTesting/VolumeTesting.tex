@@ -1,0 +1,103 @@
+\subsection{Volume Class}
+Like the matrix class, the Volume class is also essential to the success of my library. The volume class is used many times throughout the Conv class, therefore before testing out the layers class, it is important that I test out the volume class. These are the results for the unit test that was carried out on the volume class:
+\\ \\
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Instantiating volume with initial values & Volume Instantiated with set values & As expected & N/A \\
+        \cline{1-5}
+        2 & Instantiating volume with the shape explicitly defined & Volume Instantiated with the shape set & As expected & N/A \\
+        \cline{1-5}
+        3 & Instantiating volume with shapes set and all values $\sim$ N(0, 1) & Volume Instantiated with set shape and all values are $\sim$ N(0, 1) & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Volume Constructors}
+    \vspace{0.5cm}
+
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Returning a specific item from Volume & Returns the selected cell of Volume & As expected & N/A \\
+        \cline{1-5}
+        2 & getshape function & Returns correct shape of volume as a list of dimensions & As expected & N/A \\ \cline{1-5}
+        3 & Print Function & prints out all the values in the volume & As expected & N/A \\ \cline{1-5}
+        4 & Volume transpose & All layers in the volume need to be transposed & As expected & N/A \\ \cline{1-5}
+        5 & Clone Function & Function returns the Volume with the same values & As expected & N/A \\ \cline{1-5}
+        6 & Volume transpose & All layers in the volume need to be transposed & As expected & N/A \\ \cline{1-5}
+    \end{tabular}
+    \caption{Testing Volume basic functionality}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Sum of 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        2 & Subtraction between 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        3 & Element-wise - Multiplication between 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        4 & Element-wise - Division between 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        5 & Matrix Multiplication between 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        6 & Element-wise - Division between 2 Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        7 & Scalar multiplication between Volume and double & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        8 & Scalar Addition between Volume and double & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        9 & Convolution 2d between Volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+        10 & Maxpooling between 2 volumes & Volume of correct values returned & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Volume Operations}
+    \vspace{0.5cm}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & Layer Iteration & Iterator needs to return all layers in volume as an IEnumerable of volume & As expected & N/A \\
+        \cline{1-5}
+        2 & Sub-volume iteration & Iterator needs to return all sub-volumes using a kernel with fixed strides as an IEnumerable of volume & As expected & N/A \\
+        \cline{1-5}
+        3 & Sub-Volume Iteration & Iterator needs to return all sub-volumes using a kernel with fixed strides as an IEnumerable of volume & As expected & N/A \\
+        \cline{1-5}
+    \end{tabular}
+    \caption{Testing Volume Iterators}
+    \vspace{0.5cm}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & List to volume cast & Function needs to convert list of matrix to a volume given height and width & As expected & N/A \\ \cline{1-5}
+        2 & Volume to matrix cast & Function needs to convert a volume to a matrix, given height and width of the matrix & As expected & N/A \\ \cline{1-5}
+        3 & Matrix to volume cast & Function needs to convert a matrix to a volume given the height and width of the volume & As expected & N/A \\ \cline{1-5}
+    \end{tabular}
+    \caption{Testing Volume Casts}
+    \vspace{0.5cm}
+\end{table}
+
+\begin{table}[H]
+\centering
+    \begin{tabular}{|p{1cm}|p{4cm}|p{4cm}|p{3cm}|p{2cm}|}
+        \hline
+        Test No. & Test & Expected Outcome & Actual Outcome & Changes Made \\ \cline{1-5} 
+        1 & function $f(x) -> y$, where x is double, is applied on a volume & Function returns volume with each value being the result of the function & As expected & N/A \\ \cline{1-5}
+        2 & function $f(x, y) -> z$, where x and y are of type double and in separate volumes, is applied on 2 volumes & Function returns a single volume with each value being the result of the function & As expected & N/A \\ \cline{1-5}
+        3 & function $f(x, y) -> z$, where x and y are of type matrix, is applied on a volume and a matrix & Function returns a single volume with each layer being the result of the function & As expected & N/A \\ \cline{1-5}
+    \end{tabular}
+    \caption{Testing inner Volume functions}
+    \vspace{0.5cm}
+\end{table}

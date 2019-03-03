@@ -1,0 +1,32 @@
+\subsubsubsection{Momentum Optimiser} \label{SMOM}
+Momentum is an improvement on the traditional method of back-propagation. The traditional method of back-propagation is very susceptible to the problem of local minima. This means that $\frac{\partial E}{\partial W} = 0$ and the network stops learning, even though the error function could still be reduced further. 
+
+Momentum, is an alternative approach that uses an extra parameter called the "momentum" term that is used to calculate the variable "velocity" on each update. The intuition behind this is that when the gradient is high, i.e the network is learning, the velocity parameter also increases, and when the learning is slow the velocity parameter also reduces. This effect allows the network to be less susceptible to local minimas. The pseudo algorithm for Momentum is as shown in Algorithm \ref{Momentum}
+
+\begin{algorithm}[H]
+\caption{Momentum}\label{Momentum}
+\begin{algorithmic}[1]
+\State $\alpha \gets$ User defined, default 0.01
+\State $\beta \gets$ User defined, default 0.9
+\State $T \gets$ User defined Number of iterations
+
+\State $t \gets 0$ (Initialise time step)
+\State $v_{dw} \gets 0$ Setting the Momentum term for $W$
+\State $v_dw \gets 0$ Setting the Momentum term for $b$
+\\
+\For{\texttt{$t<T$}}
+\For{\texttt{each $layer$ in $net$}}
+\State compute $\frac{\partial E}{\partial w}, \frac{\partial E}{\partial b}$ using back-prop with mini-batch
+\\
+\State $dw = \frac{\partial E}{\partial w}$
+\State $db = \frac{\partial E}{\partial b}$
+\\
+\State $v_{dw} = \beta v_{dw}  + (1-\beta)dw$ (calculating the new momentum term for w)
+\State $v_{db} = \beta v_{db}  + (1-\beta)db$ (calculating the new momentum term for b)
+\\
+\State $W = W-\alpha v_{dw}$ (Updating weights using the weight momentum term)
+\State $b = b-\alpha v_{db}$ (Updating bias using the bias momentum term)
+\EndFor
+\EndFor
+\end{algorithmic}
+\end{algorithm}

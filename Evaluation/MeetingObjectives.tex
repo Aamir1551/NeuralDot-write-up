@@ -1,0 +1,54 @@
+\section{Meeting the Objectives}
+\subsection{Core}
+The core objectives of the project are: 
+\begin{enumerate}
+    \item The user can manipulate with matrices by joining two matrices together, splitting a given matrix, iterate through the columns of a matrix or its values and applying a onehot encoding function to a given matrix
+    \item The user can multiply, add, subtract and transpose a given matrix.
+    \item The user can multiply, add, subtract and transpose a list of matrices together, i.e volumes.
+\end{enumerate}
+These objectives specify the linear algebra part of my project and it is important that I meet these particular objectives because they are used by every class in my project. I have met these objectives thoroughly as the matrix class offers a wide range of functions and sub-routines which includes:
+\begin{itemize}
+    \item Add/subtract/divide/multiply
+    \item Matrix Multiplication
+    \item reshaping matrix
+    \item Transposing
+    \item Iterations, which includes columns, values, and a list of matrices
+    \item Onehot and inversing the onehot function
+    \item Applying a function to the items of the matrix
+\end{itemize}
+Likewise, the same can be said of Volume as it offers a wide range of functions including the ones specified in the objectives. Clearly, from this we can state that these objectives set have been met.
+
+\begin{enumerate}
+    \addtocounter{enumi}{3}
+    \item The user can create their own Dense Neural Networks.
+    \item The user has an option in which activation function they would like to use and also allow the user to experiment with their own activation functions.
+    \item The user can tune the hyper parameters, such as the learning rate, number of neurons in a layer, number of layers and loss function.
+    \item The user can train the network using a back-propagation algorithm.
+    \item The gradient descent algorithms should implement stochastic gradient descent, batch gradient descent as well as mini-batch gradient descent.
+    \item The user can view the weights of the network i.e learned parameters of the network
+    \item The user can view the gradients for a specific layer in a dense-net, given the gradients for the layer above.
+\end{enumerate}
+
+These objectives specify the neural networks part of my project which is the most important aspect of my project as this is the main functionality of the library. The project has met all these objectives as it allows users to create dense neural networks, layer by layer and for each layer allows the user to chose, layer activation, number of neurons in layer and loss function. The user also has a choice of gradient descent optimises such as Adam, Momentum, RMS or the standard back-propagation algorithm which all implement mini-batch gradient descent. By implementing mini-batch gradient descent, the user can chose their batch size, which enables them to either use stochastic, batch or mini-batch gradient descent. Furthermore, the library allows the user to view the parameters of the layer which includes the weights, bias and also the output and allows the user to view the gradients for a specific layer in a dense net given the gradients for the layer above. \\
+One aspect however that could be further improved is that I could make the training of neural networks much more efficient through the use of parallel programming. This would speed-up allot of the heavy computation hence saving time for the user and much easier to run tests on. However, due to the limited time I was not able to do this as I would then need to consider many other factors and parallel programming would introduce new problems that require a certain level of expertise to deal with. 
+\\
+Finally, the project meets these objectives but if the user wanted to add many layers to a net or have 1000 neurons in a layer, it could get out of hand as the amount of time required for one single backpropagation iteration would increase exponentially.
+
+\begin{enumerate}
+    \addtocounter{enumi}{10}
+    \item The user can add convolutional layers to their network, which they can tune by changing the hyper parameters such as the kernel dimensions, layer activation and kernel strides. 
+\end{enumerate}
+
+The project meets this objective as users can create a convolutional layer and allows the user to chose the settings for that layer, which includes kernel dimensions, layer activation and kernel strides. 
+\\ \\
+Overall, all the core objectives have been met to a satisfactory degree and there is very little that can be done to improve upon the project.
+
+\subsection{Extension}
+The extension objectives are: 
+\begin{enumerate}
+    \item The user can choose from a wide range of optimisation algorithms such as momentum, RMS and Adam to train their dense networks
+    \item The user can define their own back propagation algorithms to train their neural networks
+    \item The user can define their own layers
+\end{enumerate}
+
+I have met these objectives through the extensive use of OOP by having a base class as Tensor, Layer and Optimiser. By having these base classes, the user can define their own layers by inheriting from the Layer class. Likewise, the same can be said about the Optimiser class as both classes include MustInherit functions that allows the user-defined class to integrate successfully into the library. Furthermore, the library allows users to use advanced optimisation techniques such as Adam, Momentum and RSM. From this it is clear that the project also meets the extended objectives set.
